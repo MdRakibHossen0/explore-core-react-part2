@@ -7,11 +7,16 @@ import Users from "./Users";
 import { Suspense } from "react";
 import Friends from "./Friends";
 import Posts from "./Posts";
+ 
 
-const fetchPosts = async () => {
-  const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+const fetchPosts = async()=>{
+  const res = await fetch("https://jsonplaceholder.typicode.com/posts")
   return res.json();
-};
+}
+
+
+
+ 
 
 const fetchUsers = fetch("https://jsonplaceholder.typicode.com/users").then(
   (res) => res.json()
@@ -24,8 +29,10 @@ const fetchFriends = async () => {
 
 function App() {
   //async await korle ei line add korte hobe
-  const fetchPromise = fetchFriends();
-  const fetchPromisePosts = fetchPosts();
+  const fetchPromise = fetchFriends(); 
+
+  const PostsPromise = fetchPosts();
+  
 
   function handleClick() {
     alert("ok");
@@ -47,8 +54,9 @@ function App() {
   return (
     <>
       <h3>Vite + React</h3>
-      <Suspense fallback={<h3>Post loading.......</h3>}>
-        <Posts fetchPromisePosts={fetchPromisePosts}></Posts>
+
+      <Suspense fallback={<h3>All Post are loading....</h3>}>
+        <Posts PostsPromise={PostsPromise}></Posts>
       </Suspense>
 
       <Suspense fallback={<h3>friends are coming.....</h3>}>
